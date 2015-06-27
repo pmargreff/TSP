@@ -1,3 +1,5 @@
+import std.*;
+
 /*************************************************************************
  *  YOU DO NOT NEED TO MODIFY THIS FILE
  *
@@ -46,9 +48,10 @@ public class NearestInsertion {
         StdDraw.show(0);
         
         // print tour to standard output
+        tour.show();
         StdOut.printf("Tour distance =  %.4f\n", tour.distance());
         StdOut.printf("Number of points = %d\n", tour.size());
-        tour.show();
+  
     }
 
 }

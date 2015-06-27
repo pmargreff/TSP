@@ -1,3 +1,5 @@
+import std.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -42,6 +44,9 @@ public class Tour {
 
     }
 
+    /**
+     * Show x and y coordinates point
+     */
     void show() {                                   // print the tour to standard output
         if (this.head_.p != null) {
             Node tmp;
@@ -52,6 +57,9 @@ public class Tour {
         }
     }
 
+    /**
+     * draw the add points
+     */
     void draw() {                                   // draw the tour to standard draw
         StdDraw.setXscale(0, 600); //set windows scale
         StdDraw.setYscale(0, 600);
@@ -65,6 +73,9 @@ public class Tour {
         }
     }
 
+    /**
+     * @return list size
+     */
     int size() {                                   // number of points on tour
         int size = 0;
 
@@ -77,7 +88,11 @@ public class Tour {
         }
         return size;
     }
-
+    
+    /**
+     * calculate circuit distance
+     * @return  the circuit distance pass by all nodes until became the first
+     */
     double distance() {                               // return the total distance of the tour
         double dist = 0.0;
         if (this.head_.p != null) {
@@ -92,21 +107,24 @@ public class Tour {
         return dist;
     }
 
-    /*
-     *   ver por que está dando um resultado melhor 
-     *   que o esperado (mas não o ótimo)
+    /**
+     * Add the new node with new point in the lowest cost to distance
+     * the distance account is
+     * Point of node N distance to new Point
+     * @param newPoint 
      */
     void insertNearest(Point newPoint) {                   // insert p using nearest neighbor heuristic
-        //caso a lista estiver vazia insere no inicio
+        //case haven't nodes add the first
         if (this.head_.p == null) {
 
             this.head_.p = newPoint;
             this.head_.next = head_;
 
+            //case have add at nearest    
         } else {
-            double dist = this.head_.p.distanceTo(newPoint); //salva a distância do primeiro
-            Node near = this.head_; //e inicia usando para o mais perto
-            
+            double dist = this.head_.p.distanceTo(newPoint);
+            Node near = this.head_;
+
             Node tmp;
             //percorre a lista
             for (tmp = this.head_; tmp.next != this.head_; tmp = tmp.next) {
@@ -119,25 +137,65 @@ public class Tour {
                 }
 
             }
-            
-            if (dist > tmp.p.distanceTo(newPoint)) {
-                    near = tmp;
-                }
-//            System.out.println(dist);
-//            System.out.println();
 
-            //insere o novo nodo após e mais próximo
+            if (dist > tmp.p.distanceTo(newPoint)) {
+                near = tmp;
+            }
+
+//          add the new node
             Node newNode = new Node();
             newNode.p = newPoint;
             newNode.next = near.next;   //point the new to next
             near.next = newNode; //point the new to first
         }
     }
+    /**
+     * Add the new node with new point in the lowest cost to distance
+     * the distance account is
+     * (node.point N1 distance to newPoint ) + (node.point N2 distance to newPoint ) - (node.point N1 distance to node.point N1)
+     * @param newPoint 
+     */
+    void insertSmallest(Point newPoint) {
+        //case haven't nodes add the first
+        if (this.head_.p == null) {
 
-    void insertSmallest(Point p) {
+            this.head_.p = newPoint;
+            this.head_.next = head_;
 
+            //case have add at nearest    
+        } else {
+            double dist = this.head_.p.distanceTo(newPoint) + this.head_.next.p.distanceTo(newPoint) - this.head_.p.distanceTo(this.head_.next.p);
+            Node near = this.head_;
+
+            Node tmp;
+            //percorre a lista
+            for (tmp = this.head_; tmp.next != this.head_; tmp = tmp.next) {
+//                System.out.print(tmp.p.distanceTo(newPoint)+" ");
+
+                //caso seja o primeiro salve em near e atualiza a distância
+                if (dist > tmp.p.distanceTo(newPoint) + tmp.next.p.distanceTo(newPoint) - tmp.p.distanceTo(tmp.next.p)) {
+                    dist = tmp.p.distanceTo(newPoint) + tmp.next.p.distanceTo(newPoint) - tmp.p.distanceTo(tmp.next.p);
+                    near = tmp;
+                }
+
+            }
+
+            if (dist > tmp.p.distanceTo(newPoint) + tmp.next.p.distanceTo(newPoint) - tmp.p.distanceTo(tmp.next.p)) {
+                near = tmp;
+            }
+
+//          add the new node
+            Node newNode = new Node();
+            newNode.p = newPoint;
+            newNode.next = near.next;   //point the new to next
+            near.next = newNode; //point the new to first
+        }
     }
-
+    
+    /**
+     * Add the new node with new point at end of list
+     * @param newPoint 
+     */
     void insertInOrder(Point newPoint) {
         if (this.head_.p == null) {
             Node newNode = new Node();
