@@ -16,13 +16,14 @@ O repositório contém os arquivos de código, os arquivos do entrada para na pa
 
 
 ## Usando
-	### Compilação
-	* `javac *Insertion.java`
-	
-	### Executar
-	* `java *Insertion < IO/arquivoDeEntrada.txt`
 
-	Onde `*` pode ser substituido por Order, Nearest ou Smallest. 
-	Onde `arquivoDeEntrada.txt` pode ser qualquer arquivo do tipo `.txt` na pasta IO. 
+### Compilação
+* `javac *Insertion.java`
+	
+### Executar
+* `java *Insertion < IO/arquivoDeEntrada.txt`
+
+Onde `*` pode ser substituido por Order, Nearest ou Smallest. 
+Onde `arquivoDeEntrada.txt` pode ser qualquer arquivo do tipo `.txt` na pasta IO. 
 
 imagens aqui
