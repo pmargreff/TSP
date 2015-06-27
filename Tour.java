@@ -55,7 +55,7 @@ public class Tour {
     void draw() {                                   // draw the tour to standard draw
         StdDraw.setXscale(0, 600); //set windows scale
         StdDraw.setYscale(0, 600);
-        
+
         if (this.head_.p != null) {
             Node tmp;
             for (tmp = this.head_; tmp.next != this.head_; tmp = tmp.next) {
@@ -89,8 +89,41 @@ public class Tour {
         }
         return dist;
     }
+    
+    /*
+    *   ver por que está dando um resultado melhor 
+    *   que o esperado (mas não o ótimo)
+    */
+    void insertNearest(Point newPoint) {                   // insert p using nearest neighbor heuristic
+        if (this.head_.p == null) {
+            
+            this.head_.p = newPoint;
+            this.head_.next = head_;
 
-    void insertNearest(Point p) {                   // insert p using nearest neighbor heuristic
+        } else{
+            double dist = this.head_.p.distanceTo(newPoint);
+            Node tmp;
+            Node near = new Node();
+            near = this.head_;
+            //go to ond of list
+            for (tmp = this.head_; tmp.next != this.head_; tmp = tmp.next) {
+//                System.out.print(tmp.p.distanceTo(newPoint)+" ");
+                
+                if (dist > tmp.p.distanceTo(newPoint)){
+                    dist = tmp.p.distanceTo(newPoint);
+                    near = tmp;
+                }
+                
+            }
+//
+//            System.out.println(dist);
+//            System.out.println();
+            
+            Node newNode = new Node();
+            newNode.p = newPoint;
+            newNode.next = near.next;   //point the new to next
+            near.next = newNode; //point the new to first
+        }
     }
 
     void insertSmallest(Point p) {
@@ -98,6 +131,21 @@ public class Tour {
     }
 
     void insertInOrder(Point newPoint) {
+        if (this.head_.p == null) {
+            Node newNode = new Node();
 
+            this.head_.p = newPoint;
+            this.head_.next = head_;
+        } else {
+            Node tmp;
+            //go to ond of list
+            for (tmp = this.head_; tmp.next != this.head_; tmp = tmp.next) {
+            }
+
+            Node newNode = new Node();
+            newNode.p = newPoint;
+            tmp.next = newNode;   //point the last to new
+            newNode.next = this.head_; //point the new to first
+        }
     }
 }
