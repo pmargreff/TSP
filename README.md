@@ -1,6 +1,6 @@
-# TSP
+# TSP - Traveling Salesperson Problem
+
 ## Apresentação
-Traveling Salesperson Problem
 
 Universidade Federal de Pelotas Bacharelado em Ciência da Computação
 
