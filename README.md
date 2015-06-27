@@ -21,6 +21,5 @@ O repositório contém os arquivos de código, os arquivos do entrada para na pa
 ### Execução
 * `java *Insertion < IO/arquivoDeEntrada.txt`
 
-Onde: `*` pode ser substituido por Order, Nearest ou Smallest. 
-Onde: `arquivoDeEntrada.txt` pode ser qualquer arquivo do tipo `.txt` na pasta `/IO`. 
+Onde `*` pode ser substituido por Order, Nearest ou Smallest. E `arquivoDeEntrada.txt` pode ser qualquer arquivo do tipo `.txt` na pasta `/IO`. 
 
